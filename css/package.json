@@ -1,0 +1,13 @@
+
+{
+  "name": "uz-help",
+  "version": "1.0.0",
+  "description": "UZ HELP xizmatlar platformasi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

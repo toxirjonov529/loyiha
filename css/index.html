@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UZ HELP</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #172033;
+}
+
+header {
+  background: #101827;
+  color: white;
+  padding: 22px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span, .hero span {
+  color: #2878f0;
+}
+
+nav {
+  display: flex;
+  gap: 22px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  background: #172d50;
+  color: white;
+  text-align: center;
+  padding: 85px 20px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  margin-bottom: 20px;
+}
+
+.hero p {
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+.search {
+  display: flex;
+  max-width: 550px;
+  margin: auto;
+  gap: 10px;
+}
+
+input {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 9px;
+  outline-color: #2878f0;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+}
+
+button {
+  background: #2878f0;
+  color: white;
+  border: none;
+  padding: 13px 22px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #145ac0;
+}
+
+.services {
+  padding: 60px 8%;
+}
+
+.services h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px #00000009;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.emoji {
+  font-size: 38px;
+}
+
+.card h3 {
+  margin: 15px 0 10px;
+}
+
+.card p {
+  color: #68758a;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.card button {
+  width: 100%;
+}
+
+.about {
+  background: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.about p {
+  color: #68758a;
+  margin-top: 15px;
+}
+
+footer {
+  background: #101827;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0009;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+}
+
+.modal-content input {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.modal-content button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#message {
+  margin-top: 12px;
+  color: #2878f0;
+}
+
+@media(max-width:600px) {
+  header {
+    flex-direction: column;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .search {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">UZ<span>HELP</span></div>
+
+  <nav>
+    <a href="#">Bosh sahifa</a>
+    <a href="#services">Xizmatlar</a>
+    <a href="#about">Biz haqimizda</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Kerakli xizmatni <span>oson toping!</span></h1>
+  <p>O'zbekistondagi mutaxassislar bir joyda.</p>
+
+  <div class="search">
+    <input id="searchInput" placeholder="Xizmat qidirish...">
+    <button onclick="searchServices()">Qidirish</button>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <h2>Ommabop xizmatlar</h2>
+  <div class="cards" id="serviceCards"></div>
+</section>
+
+<section class="about" id="about">
+  <h2>UZ HELP haqida</h2>
+  <p>Biz sizga kerakli mutaxassislarni topishda yordam beramiz.</p>
+</section>
+
+<footer>
+  © 2026 UZ HELP. Barcha huquqlar himoyalangan.
+</footer>
+
+<div class="modal" id="orderModal">
+  <div class="modal-content">
+    <h2>Buyurtma berish</h2>
+    <p id="selectedService"></p>
+
+    <input id="customerName" placeholder="Ismingiz">
+    <input id="customerPhone" placeholder="Telefon raqamingiz">
+
+    <button onclick="sendOrder()">Buyurtmani yuborish</button>
+    <button onclick="closeModal()" style="background:#64748b">
+      Yopish
+    </button>
+
+    <p id="message"></p>
+  </div>
+</div>
+
+<script>
+let services = [];
+let selectedService = "";
+
+const cards = document.getElementById("serviceCards");
+
+async function loadServices() {
+  try {
+    const response = await fetch("/api/services");
+
+    if (!response.ok) throw new Error("Server xatosi");
+
+    services = await response.json();
+    showServices(services);
+
+  } catch (error) {
+    cards.textContent = "Server bilan bog'lanib bo'lmadi!";
+    console.error(error);
+  }
+}
+
+function showServices(list) {
+  cards.innerHTML = "";
+
+  if (!list.length) {
+    cards.textContent = "Xizmat topilmadi.";
+    return;
+  }
+
+  list.forEach(service => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const emoji = document.createElement("div");
+    emoji.className = "emoji";
+    emoji.textContent = service.emoji;
+
+    const title = document.createElement("h3");
+    title.textContent = service.name;
+
+    const description = document.createElement("p");
+    description.textContent = service.description;
+
+    const button = document.createElement("button");
+    button.textContent = "Buyurtma berish";
+    button.onclick = () => openModal(service.name);
+
+    card.append(emoji, title, description, button);
+    cards.appendChild(card);
+  });
+}
+
+function searchServices() {
+  const query = document.getElementById("searchInput")
+    .value.toLowerCase().trim();
+
+  const filtered = services.filter(service =>
+    (service.name + " " + service.description)
+      .toLowerCase().includes(query)
+  );
+
+  showServices(filtered);
+}
+
+function openModal(name) {
+  selectedService = name;
+  document.getElementById("selectedService").textContent =
+    "Xizmat: " + name;
+
+  document.getElementById("message").textContent = "";
+  document.getElementById("orderModal").classList.add("active");
+}
+
+function closeModal() {
+  document.getElementById("orderModal").classList.remove("active");
+}
+
+async function sendOrder() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const message = document.getElementById("message");
+
+  if (!name || !phone) {
+    message.textContent = "Barcha maydonlarni to'ldiring!";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        phone,
+        service: selectedService
+      })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message);
+    }
+
+    message.textContent = result.message;
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+
+  } catch (error) {
+    message.textContent = error.message;
+  }
+}
+
+loadServices();
+</script>
+
+</body>
+</html>
